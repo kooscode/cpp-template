@@ -1,4 +1,4 @@
-#basic MakeFile template
+#basic Makefile template
 #kdupreez@hotmail.com
 
 APP=cpp-template
