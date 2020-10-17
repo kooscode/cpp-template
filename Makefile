@@ -1,4 +1,5 @@
 #basic Makefile template
+#https://github.com/kooscode/cpp-template
 #kdupreez@hotmail.com
 
 APP=cpp-template
