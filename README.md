@@ -5,5 +5,5 @@ that can resolve most of the things like libs/includes/packages, etc. that I nor
 
 Usage:
 ------
+- Edit your code and adjust Makefile accordingly..
 - Just run `make` to build
-- Edit the Makefile accordingly..
