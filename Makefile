@@ -6,8 +6,10 @@ APP=cpp-template
 SRC_MAIN=src
 OUT_DIR=bin
 
-#G++ options (-g = debug)
 CXX=g++
+#G++ options
+# To Make Debug Build set: -g
+# To Debug with GDB run: gdb -ex=r --args APP ARG1 ARG2
 CFLAGS=-g -Wall -ansi
 CPP_STD=c++14
 
@@ -54,10 +56,18 @@ PKG_INCS=$(shell pkg-config --cflags $(PKGS))
 PKG_LIBS=$(shell pkg-config --libs $(PKGS))
 endif
 
-#compile (-g = debug mode)
+#defines (add extras if needed)
+#env variables can also be passed through with $(ENV_VAR_NAME)
+D1="USER_NAME=\"$(USER)\""
+D2=
+D3=
+D4=
+DEF=$(D1) $(D2) $(D3) $(D4)
+DEFS=$(foreach d, $(DEF), -D$d)
+
 $(APP): $(SRC_MAIN)/$(APP).cpp 
 	test -d bin || mkdir -p bin
-	$(CXX) $(CFLAGS) -std=$(CPP_STD) $(SRC_MAIN)/$(APP).cpp $(SOURCES) -o $(OUT_DIR)/$(APP) $(INCLUDES) $(PKG_INCS) $(LIB_PATHS) $(LIBS) $(PKG_LIBS)
+	$(CXX) $(CFLAGS) -std=$(CPP_STD) $(DEFS) $(SRC_MAIN)/$(APP).cpp $(SOURCES) -o $(OUT_DIR)/$(APP) $(INCLUDES) $(PKG_INCS) $(LIB_PATHS) $(LIBS) $(PKG_LIBS)
 
 clean:
 	rm bin/$(APP)
