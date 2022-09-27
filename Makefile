@@ -22,6 +22,14 @@ I4=
 INC=$(I1) $(I2) $(I3) $(I4)
 INCLUDES=$(foreach d, $(INC), -I$d)
 
+#additional wildcard CPP source folders
+SDIR1=
+SDIR2=
+SDIR3=
+SDIR4=
+SDIRS = $(SDIR1) $(SDIR2) $(SDIR3) $(SDIR4)
+SOURCES_ALL := $(foreach s, $(SDIRS), $(foreach d, $(wildcard $s/*.cpp), $d))
+
 #additional sources files (add extras if needed)
 S1=
 S2=
@@ -67,7 +75,7 @@ DEFS=$(foreach d, $(DEF), -D$d)
 
 $(APP): $(SRC_MAIN)/$(APP).cpp 
 	test -d bin || mkdir -p bin
-	$(CXX) $(CFLAGS) -std=$(CPP_STD) $(DEFS) $(SRC_MAIN)/$(APP).cpp $(SOURCES) -o $(OUT_DIR)/$(APP) $(INCLUDES) $(PKG_INCS) $(LIB_PATHS) $(LIBS) $(PKG_LIBS)
+	$(CXX) $(CFLAGS) -std=$(CPP_STD) $(DEFS) $(SRC_MAIN)/$(APP).cpp $(SOURCES) $(SOURCES_ALL) -o $(OUT_DIR)/$(APP) $(INCLUDES) $(PKG_INCS) $(LIB_PATHS) $(LIBS) $(PKG_LIBS)
 
 clean:
 	rm bin/$(APP)
